@@ -1,6 +1,6 @@
 # /discover
 
-Analyze a problem deeply and produce a structured PRD, then publish it as a Linear issue.
+Analyze a problem deeply and produce a structured PRD, then publish it as a Linear project.
 
 ## When to Use
 
@@ -94,19 +94,19 @@ Incorporate feedback before publishing.
 
 ### 5. Publish to Linear
 
-Once the user confirms, create a Linear issue:
+Once the user confirms, create a Linear project:
 
-- **Title:** `[Discovery] <short problem title>`
+- **Name:** `[Discovery] <short problem title>`
 - **Description:** the full PRD markdown
-- **Type / Label:** mark as `Discovery` or `Bug` depending on nature
+- **Status:** `planned` (or the appropriate initial status for the team's workflow)
 - **Team:** ask the user which team to assign to if not obvious from context
 
-Use the Linear Access method from `AGENTS.md`. Confirm the created issue URL back to the user.
+Use the Linear Access method from `AGENTS.md`. Confirm the created project URL back to the user.
 
 ## Rules
 
 - Investigate before drafting — never write the PRD from the problem description alone
 - Every section must be filled or explicitly marked unknown
 - Solutions go in the last two sections only — keep root cause analysis free of solution bias
-- Do not create the Linear issue until the user has approved the PRD
+- Do not create the Linear project until the user has approved the PRD
 - Match the affected app's conventions when referencing code (Rails MVC paths, Go package paths, Next.js route structure)
