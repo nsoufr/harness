@@ -1,0 +1,60 @@
+---
+description: Always-on engineering standards for code quality, testing, security, git hygiene, and performance
+alwaysApply: true
+---
+
+## Code Quality
+
+- Write code that is correct, not clever. Prefer readability over brevity.
+- Never add comments unless asked. Code should be self-documenting.
+- Follow existing patterns in the codebase. Consistency > personal preference.
+- Use existing libraries and utilities before adding new dependencies.
+- Never assume a library is available — check `package.json`, `Cargo.toml`, etc. first.
+
+## Testing
+
+- Write tests for new features. Match the existing test style and framework.
+- Before opening a PR, run the full test suite locally.
+- Tests should verify behavior, not implementation.
+- Fix tests if they break. Never skip or `xit` a failing test to make CI pass.
+
+## Security
+
+- Never commit secrets, API keys, or credentials.
+- Never log sensitive data (passwords, tokens, PII).
+- Validate and sanitize all user inputs.
+- Use parameterized queries — never string-interpolate into SQL.
+
+## Git Hygiene
+
+- Keep commits focused and atomic. One logical change per commit.
+- Write commit messages in imperative mood: "add feature" not "added feature".
+- Reference Linear tickets in commits and PRs.
+- Never commit generated files, `.env`, or build artifacts.
+- Rebase, don't merge, when pulling in upstream changes (if team convention).
+- Never force-push to shared branches without explicit permission.
+
+## Performance
+
+- Prefer batched reads/writes over N+1 loops.
+- Never fetch data inside a render loop or unbounded iteration.
+- Don't block the main thread — move CPU-heavy work to workers or async.
+- Profile before optimizing. No premature optimization.
+
+## Dependencies
+
+- Check for existing utilities before adding a new dependency.
+- Never add a dependency used in only one place that is trivially implementable inline.
+- Commit lockfiles (`package-lock.json`, `Cargo.lock`, `uv.lock`). Never omit them.
+- Run `npm audit` / `cargo audit` before adding a new package.
+
+## Review Readiness
+
+Before asking for review, verify:
+
+- [ ] All tests pass
+- [ ] Lint and typecheck pass
+- [ ] No stray debug output or commented-out code
+- [ ] Changes are focused and relevant
+- [ ] PR description is clear and complete
+- [ ] Linear ticket referenced
