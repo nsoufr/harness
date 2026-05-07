@@ -59,7 +59,37 @@ Do not move to the next dimension until the user has confirmed or redirected the
 
 ---
 
-#### 4.1 Architecture Overview — C4 Model
+#### 4.1 Build vs. Buy / Adopt Analysis
+
+Before designing internals, evaluate whether building from scratch is the right choice. Survey the landscape and capture trade-offs explicitly.
+
+**Open-source candidates** — for each project found, evaluate:
+
+- **Maintainability:** commit frequency, last release date, number of active maintainers, issue/PR turnaround, license compatibility, security advisory history
+- **Architectural coherence:** language/runtime synergy with our stack (Rails / Go / Next.js), how cleanly it embeds or adapts to our environment, dependency footprint, API surface fit
+- **Extensibility:** can we extend it for our needs without forking? Is there a plugin or hook model?
+- **Risk of abandonment:** what is our exposure if the project becomes unmaintained? Could we fork and own it?
+
+**Third-party / SaaS candidates** — for each service found, evaluate:
+
+- **Cost model** at current scale and at 10×
+- **Vendor lock-in:** how portable is the data and integration? What is the exit cost?
+- **Data residency / compliance** alignment with our requirements
+- **SLA and operational guarantees** vs. what the feature actually needs
+- **Integration cost:** auth, networking, error handling, observability hooks
+
+**Recommendation** — pick one and justify it against the criteria above:
+
+- **Build** — when no candidate fits, or differentiation requires control
+- **Adopt OSS** — when a project is mature and coherent with our stack
+- **Buy SaaS** — when operational burden outweighs control benefit
+- **Hybrid** — e.g. adopt OSS core, build the differentiating layer
+
+If the recommendation is **adopt** or **buy**, the remaining dimensions (data, API, patterns, security, performance, observability, cost) still apply — but framed around integration and operating the chosen solution rather than building from zero.
+
+---
+
+#### 4.2 Architecture Overview — C4 Model
 
 Produce diagrams at the levels relevant to the change. Use Mermaid syntax so diagrams render inline in Linear and most markdown tools.
 
@@ -86,7 +116,7 @@ For each diagram, explain: what is changing vs. what already exists.
 
 ---
 
-#### 4.2 Data Design
+#### 4.3 Data Design
 
 - What new models, tables, or collections are needed?
 - What existing models change, and how (new columns, removed columns, type changes)?
@@ -96,7 +126,7 @@ For each diagram, explain: what is changing vs. what already exists.
 
 ---
 
-#### 4.3 API Design
+#### 4.4 API Design
 
 - What new endpoints, RPCs, or events are introduced?
 - What is the request/response shape?
@@ -105,7 +135,7 @@ For each diagram, explain: what is changing vs. what already exists.
 
 ---
 
-#### 4.4 Key Patterns and Decisions
+#### 4.5 Key Patterns and Decisions
 
 Identify the architectural patterns that apply and justify the choice:
 
@@ -119,7 +149,7 @@ For each pattern chosen, note: what alternatives were considered and why they we
 
 ---
 
-#### 4.5 Security
+#### 4.6 Security
 
 - **Authentication & authorisation:** what permissions govern this feature? Are new roles or scopes needed?
 - **Input validation:** what user-controlled data enters the system, and where is it validated?
@@ -129,7 +159,7 @@ For each pattern chosen, note: what alternatives were considered and why they we
 
 ---
 
-#### 4.6 Performance
+#### 4.7 Performance
 
 - **Expected load:** estimated RPS, concurrent users, data volume at launch and at 10×
 - **Bottlenecks:** where are the likely hotspots? (N+1 queries, synchronous external calls, large payloads)
@@ -138,7 +168,7 @@ For each pattern chosen, note: what alternatives were considered and why they we
 
 ---
 
-#### 4.7 Observability
+#### 4.8 Observability
 
 For each of the three pillars, specify what must exist before this ships — not after:
 
@@ -149,7 +179,7 @@ For each of the three pillars, specify what must exist before this ships — not
 
 ---
 
-#### 4.8 Cost & Capacity
+#### 4.9 Cost & Capacity
 
 - **Infrastructure delta:** what new resources does this require? (compute, storage, cache, queues, external APIs)
 - **Cost estimate:** rough order of magnitude at current scale and at 10×
