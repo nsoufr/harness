@@ -97,9 +97,11 @@ Incorporate feedback before publishing.
 Once the user confirms, create a Linear project:
 
 - **Name:** `[Discovery] <short problem title>`
-- **Description:** the full PRD markdown
+- **Description:** the full PRD markdown — this is the default location for the PRD
 - **Status:** `planned` (or the appropriate initial status for the team's workflow)
 - **Team:** ask the user which team to assign to if not obvious from context
+
+**Default:** put the PRD in the project description. Do **not** create an umbrella issue/ticket for the PRD unless the user explicitly asks for one.
 
 Use the Linear Access method from `AGENTS.md`. Confirm the created project URL back to the user.
 
@@ -109,4 +111,5 @@ Use the Linear Access method from `AGENTS.md`. Confirm the created project URL b
 - Every section must be filled or explicitly marked unknown
 - Solutions go in the last two sections only — keep root cause analysis free of solution bias
 - Do not create the Linear project until the user has approved the PRD
+- The PRD lives in the project description by default — do not create an umbrella issue/ticket for it unless the user explicitly asks
 - Match the affected app's conventions when referencing code (Rails MVC paths, Go package paths, Next.js route structure)
